@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://csl5iuqrnbmp3"]
+
+[ext_resource type="PackedScene" uid="uid://dj22gvpqqcdaw" path="res://Assets/Models/Dungeon/gltf/floor_tile_small.gltf.glb" id="1_ydsfc"]
+[ext_resource type="PackedScene" uid="uid://b1itw1pvw1lkw" path="res://Assets/Models/Dungeon/gltf/wall.gltf.glb" id="2_ue0xb"]
+[ext_resource type="PackedScene" uid="uid://ehe274falxfe" path="res://Assets/Models/Dungeon/gltf/stairs_wood_decorated.gltf.glb" id="3_d61da"]
+[ext_resource type="PackedScene" uid="uid://0u2t7dn1pys1" path="res://Assets/Models/Dungeon/gltf/wall_corner.gltf.glb" id="4_ppmro"]
+[ext_resource type="PackedScene" uid="uid://dmusn750ev127" path="res://Assets/Models/Dungeon/gltf/wall_Tsplit.gltf.glb" id="5_hjt6n"]
+[ext_resource type="PackedScene" uid="uid://bmrv314qddr8k" path="res://Assets/Models/Dungeon/gltf/wall_open_scaffold.gltf.glb" id="6_bku2f"]
+[ext_resource type="PackedScene" uid="uid://b1q2rlxk7lt3f" path="res://Assets/Models/Dungeon/gltf/wall_doorway_scaffold.glb" id="7_2hjek"]
+
+[node name="Tiles" type="Node3D"]
+
+[node name="floor_tile_small_gltf" parent="." instance=ExtResource("1_ydsfc")]
+
+[node name="wall_gltf" parent="." instance=ExtResource("2_ue0xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.75623)
+
+[node name="stairs_wood_decorated_gltf" parent="." instance=ExtResource("3_d61da")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66956, 0, 0)
+
+[node name="wall_corner_gltf" parent="." instance=ExtResource("4_ppmro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73134, 0, 2.9167)
+
+[node name="wall_Tsplit_gltf" parent="." instance=ExtResource("5_hjt6n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.19058, 0, 0)
+
+[node name="wall_open_scaffold_gltf" parent="." instance=ExtResource("6_bku2f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0595, 0, -9.65482)
+
+[node name="wall_doorway_scaffold2" parent="." instance=ExtResource("7_2hjek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.36052, 0, -9.25671)
