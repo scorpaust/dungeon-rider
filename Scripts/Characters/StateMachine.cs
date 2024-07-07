@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class StateMachine : Node
 {
@@ -13,15 +14,7 @@ public partial class StateMachine : Node
 
     public void SwitchState<T>()
     {
-        Node newState = null;
-
-        foreach (Node state in states)
-        {
-            if (state is T)
-            {
-                newState = state;
-            }
-        }
+        Node newState = states.Where((state) => state is T).FirstOrDefault();
 
         if (newState == null) return;
 
