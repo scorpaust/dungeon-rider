@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://cacof74mq56ts"]
+
+[ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="1_n84wy"]
+[ext_resource type="Texture2D" uid="uid://bw4cueq4cc60m" path="res://Assets/Sprites/UI/Logo_Dungeon_Rider.png" id="1_xl87r"]
+[ext_resource type="Script" path="res://Scripts/UI/UIContainer.cs" id="2_f61mt"]
+[ext_resource type="FontFile" uid="uid://c6ulpmxgubd2r" path="res://Assets/gothic_ultra_ot-webfont.ttf" id="2_wsoww"]
+[ext_resource type="Texture2D" uid="uid://qkrtsvjvd6jx" path="res://Assets/Sprites/UI/UI Element 2.png" id="3_6sttj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rymc2"]
+texture = ExtResource("3_6sttj")
+expand_margin_left = 48.0
+expand_margin_top = 8.0
+expand_margin_right = 48.0
+expand_margin_bottom = 16.0
+
+[node name="UI" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_n84wy")
+
+[node name="Start" type="SubViewportContainer" parent="." node_paths=PackedStringArray("ButtonNode")]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+auto_translate = false
+localize_numeral_system = false
+stretch = true
+script = ExtResource("2_f61mt")
+ButtonNode = NodePath("SubViewport/Button")
+
+[node name="SubViewport" type="SubViewport" parent="Start"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Start/SubViewport"]
+offset_top = 4.0
+offset_right = 1156.0
+offset_bottom = 643.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_xl87r")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="Start/SubViewport"]
+layout_direction = 2
+offset_left = 953.0
+offset_top = 514.0
+offset_right = 1103.0
+offset_bottom = 621.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_wsoww")
+theme_override_font_sizes/font_size = 102
+theme_override_styles/normal = SubResource("StyleBoxTexture_rymc2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rymc2")
+theme_override_styles/focus = SubResource("StyleBoxTexture_rymc2")
+text = "Start "
