@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ccd1por1hsmgv"]
+[gd_scene load_steps=20 format=3 uid="uid://ccd1por1hsmgv"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/Main.cs" id="1_0vmer"]
 [ext_resource type="PackedScene" uid="uid://bniwh6oq5vstu" path="res://Scenes/Characters/Player/player.tscn" id="2_1ptuy"]
 [ext_resource type="MeshLibrary" uid="uid://jx43l4hq8sii" path="res://Resources/tiles.tres" id="3_t30mv"]
 [ext_resource type="PackedScene" uid="uid://dxk0vro5up3bq" path="res://Scenes/Characters/Enemy/enemy.tscn" id="4_jta77"]
 [ext_resource type="PackedScene" uid="uid://cacof74mq56ts" path="res://Scenes/General/ui.tscn" id="5_fxxxx"]
+[ext_resource type="Script" path="res://Scripts/General/Camera.cs" id="6_pqy0o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wv083"]
 size = Vector3(0.232422, 6.38879, 5.43845)
@@ -93,9 +94,6 @@ script = ExtResource("1_0vmer")
 [node name="Player" parent="." instance=ExtResource("2_1ptuy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 6)
-
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="InvisibleWallStairsLeft" type="StaticBody3D" parent="Environment"]
@@ -180,3 +178,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23131, 0)
 curve = SubResource("Curve3D_ql131")
 
 [node name="UI" parent="." instance=ExtResource("5_fxxxx")]
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 23.508, 10.4975, -36.7852)
+script = ExtResource("6_pqy0o")
+target = NodePath("../Player")
+positionFromTarget = Vector3(0, 2, 6)
