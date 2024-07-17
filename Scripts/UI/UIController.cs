@@ -22,6 +22,8 @@ public partial class UIController : Control
 
         containers[ContainerType.Start].Visible = false;
 
+        containers[ContainerType.Stats].Visible = true;
+
         GameEvents.RaiseStartGame();
     }
 
