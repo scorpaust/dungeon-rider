@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://bniwh6oq5vstu"]
+[gd_scene load_steps=100 format=3 uid="uid://bniwh6oq5vstu"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vpk0in8joa" path="res://Assets/Sprites/Characters/Player/Running/Running_000.png" id="1_1y00e"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_d3i8n"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://l8wknvm7bfi0" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_001.png" id="3_qir52"]
 [ext_resource type="Resource" uid="uid://c5upsbxbevm2" path="res://Resources/player_strength_stat.tres" id="3_rb42h"]
 [ext_resource type="Texture2D" uid="uid://cf5bi5pdxtcnb" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_002.png" id="4_2cyy7"]
+[ext_resource type="Shader" path="res://Shaders/character_hurt.gdshader" id="4_dson4"]
 [ext_resource type="Texture2D" uid="uid://d3nqcsirdgm3u" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_003.png" id="5_i2bqi"]
 [ext_resource type="Texture2D" uid="uid://dgowmxy3uffuw" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_004.png" id="6_73fgk"]
 [ext_resource type="Texture2D" uid="uid://c57vdu2ni2s4c" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_005.png" id="7_nywfr"]
@@ -85,7 +86,15 @@
 [ext_resource type="Texture2D" uid="uid://b7ltsw3sj6lem" path="res://Assets/Sprites/Characters/Player/Dying/Dying_013.png" id="76_swqnb"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDeathState.cs" id="83_4axwt"]
 [ext_resource type="PackedScene" uid="uid://cm66gtynp6m4a" path="res://Scenes/Abilities/bomb.tscn" id="83_wqj2g"]
+[ext_resource type="PackedScene" uid="uid://ch0twn1h41in6" path="res://Scenes/Abilities/lightning.tscn" id="85_84nd4"]
 [ext_resource type="Script" path="res://Scripts/Characters/AttackHitBox.cs" id="86_ar73p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2gi"]
+render_priority = 1
+shader = ExtResource("4_dson4")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/tex = ExtResource("2_41jp5")
 
 [sub_resource type="Animation" id="Animation_yu7av"]
 resource_name = "Attack1"
@@ -246,7 +255,7 @@ height = 1.53738
 [sub_resource type="BoxShape3D" id="BoxShape3D_2v6b7"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "SpriteNode", "StateMachineNode", "HurtBoxNode", "HitBoxNode", "HitBoxShapeNode")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimPlayerNode", "SpriteNode", "StateMachineNode", "HurtBoxNode", "HitBoxNode", "HitBoxShapeNode", "ShaderTimerNode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 collision_layer = 2
 collision_mask = 5
@@ -260,8 +269,10 @@ StateMachineNode = NodePath("StateMachine")
 HurtBoxNode = NodePath("HurtBox")
 HitBoxNode = NodePath("HitBox")
 HitBoxShapeNode = NodePath("HitBox/CollisionShape3D")
+ShaderTimerNode = NodePath("ShaderTimer")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
+material_overlay = SubResource("ShaderMaterial_pl2gi")
 pixel_size = 0.0025
 texture_filter = 0
 texture = ExtResource("2_41jp5")
@@ -293,6 +304,7 @@ one_shot = true
 [node name="AttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("comboTimerNode")]
 script = ExtResource("64_u2oj4")
 comboTimerNode = NodePath("Timer")
+lightningScene = ExtResource("85_84nd4")
 
 [node name="Timer" type="Timer" parent="StateMachine/AttackState"]
 wait_time = 2.0
@@ -307,7 +319,7 @@ shape = SubResource("CapsuleShape3D_e7iv4")
 
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("86_ar73p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
@@ -321,3 +333,7 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("CapsuleShape3D_e7iv4")
+
+[node name="ShaderTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

@@ -16,7 +16,6 @@
 
 [sub_resource type="Animation" id="Animation_qnvpd"]
 resource_name = "Expand"
-length = 1.0
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/imported = false

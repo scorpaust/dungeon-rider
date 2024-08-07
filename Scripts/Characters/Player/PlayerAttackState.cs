@@ -9,6 +9,8 @@ public partial class PlayerAttackState : PlayerState
 
     [Export] private Timer comboTimerNode;
 
+    [Export] private PackedScene lightningScene;
+
     public override void _Ready()
     {
         base._Ready();
@@ -21,11 +23,15 @@ public partial class PlayerAttackState : PlayerState
         characterNode.AnimPlayerNode.Play(GameConstants.ANIM_ATTACK + comboCounter, -1, 1.5f);
 
         characterNode.AnimPlayerNode.AnimationFinished += HandleAnimationFinished;
+
+        characterNode.HitBoxNode.BodyEntered += HandleBodyEntered;
     }
 
     protected override void ExitState()
     {
         characterNode.AnimPlayerNode.AnimationFinished -= HandleAnimationFinished;
+
+        characterNode.HitBoxNode.BodyEntered -= HandleBodyEntered;
 
         comboTimerNode.Start();
     }
@@ -52,5 +58,19 @@ public partial class PlayerAttackState : PlayerState
         characterNode.HitBoxNode.Position = newPosition;
 
         characterNode.ToggleHitBox(false);
+    }
+
+    private void HandleBodyEntered(Node3D body)
+    {
+        if (comboCounter != maxComboCount)
+        {
+            return;
+        }
+
+        Node3D lightning = lightningScene.Instantiate<Node3D>();
+
+        GetTree().CurrentScene.AddChild(lightning);
+
+        lightning.GlobalPosition = body.GlobalPosition;
     }
 }
